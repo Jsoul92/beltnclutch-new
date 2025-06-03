@@ -29,7 +29,7 @@ body.dark-theme {
   border: none;
   border-radius: 50%;
   padding: 10px;
-  font-size: 20px;
+  font-size: 35px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease;
