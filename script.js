@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navbar) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > lastScrollY) {
-                navbar.style.top = '-100px';
+                navbar.style.top = '-80px';
             } else {
                 navbar.style.top = '0';
             }
@@ -144,6 +144,116 @@ document.addEventListener("DOMContentLoaded", () => {
             gradientText.classList.remove('js-animated');
         }
     }
+    // Contact form functions for Belt'n'Clutch Mobile Repairs
+
+function sendWhatsApp() {
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const car = document.getElementById('car').value.trim();
+    const issue = document.getElementById('issue').value.trim();
+    
+    // Validate required fields
+    if (!name || !phone || !car || !issue) {
+        alert('Please fill in all fields before sending.');
+        return;
+    }
+    
+    // Your WhatsApp business number (replace with your actual number)
+    const whatsappNumber = '447123456789'; // Replace with your actual WhatsApp business number
+    
+    // Create WhatsApp message
+    const message = `*New Service Request - Belt'n'Clutch Mobile Repairs*
+
+*Name:* ${name}
+*Phone:* ${phone}
+*Vehicle:* ${car}
+
+*Issue Description:*
+${issue}
+
+*Service Area:* Anglesey & Gwynedd
+*Speciality:* Ford EcoBoost, Timing Belts, Clutches`;
+    
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Create WhatsApp URL
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+}
+
+function sendEmail() {
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const car = document.getElementById('car').value.trim();
+    const issue = document.getElementById('issue').value.trim();
+    
+    // Validate required fields
+    if (!name || !phone || !car || !issue) {
+        alert('Please fill in all fields before sending.');
+        return;
+    }
+    
+    // Your business email (replace with your actual email)
+    const businessEmail = 'info@beltnclutch.co.uk'; // Replace with your actual email
+    
+    // Create email subject and body
+    const subject = `Service Request from ${name} - Belt'n'Clutch Mobile Repairs`;
+    const body = `New Service Request - Belt'n'Clutch Mobile Repairs
+
+Name: ${name}
+Phone: ${phone}
+Vehicle: ${car}
+
+Issue Description:
+${issue}
+
+Service Area: Anglesey & Gwynedd
+Speciality: Ford EcoBoost, Timing Belts, Clutches
+
+---
+This message was sent from the Belt'n'Clutch website contact form.`;
+    
+    // Create mailto URL
+    const mailtoURL = `mailto:${businessEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open email client
+    window.location.href = mailtoURL;
+}
+
+// Optional: Clear form after successful submission
+function clearForm() {
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('car').value = '';
+    document.getElementById('issue').value = '';
+}
+
+// Optional: Add form validation on input
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.contact-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && !this.value.trim()) {
+                this.style.borderColor = '#ff6b6b';
+            } else {
+                this.style.borderColor = '#667eea';
+            }
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.style.borderColor === 'rgb(255, 107, 107)') {
+                this.style.borderColor = '#ccc';
+            }
+        });
+    });
+});
 
     // Инициализируем анимацию текста
     initGradientTextAnimation();
