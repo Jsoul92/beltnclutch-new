@@ -727,12 +727,21 @@ footer p {
 
     .hero-image {
         width: 100%;
-        max-width: none;
+        max-width: none; /* Убираем ограничение ширины */
         margin: 2rem 0 0 0;
         border-radius: 15px;
-        min-height: 200px;
-        height: 250px;
-        aspect-ratio: unset;
+        min-height: 280px; /* Увеличиваем минимальную высоту */
+        height: auto; /* Позволяем aspect-ratio управлять высотой */
+        aspect-ratio: 4 / 3; /* Лучшее соотношение для мобильных */
+        
+        /* Улучшаем производительность на мобильных */
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        
+        /* Исправляем проблемы с отображением */
+        -webkit-transform: translateZ(0); /* Ускоряет рендеринг на iOS */
+        transform: translateZ(0);
     }
 
     .services {
