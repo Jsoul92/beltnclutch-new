@@ -26,8 +26,8 @@ body.dark-theme {
   right: 20px;
   z-index: 9999;
 
-  width: 60px;                  /* фиксированная ширина */
-  height: 60px;                 /* фиксированная высота */
+  width: 35px;                  /* фиксированная ширина */
+  height: 35px;                 /* фиксированная высота */
   border-radius: 50%;           /* делает элемент кругом */
 
   background: #fff;
