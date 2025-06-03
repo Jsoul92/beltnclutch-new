@@ -14,7 +14,7 @@ body {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px; /* ИСПРАВЛЕНО: убрана неправильная запись "50 20px" */
+    padding: 0 20px;
 }
 
 .logo img {
@@ -109,7 +109,7 @@ nav {
 
 /* Hero Section */
 .hero {
-    margin-top: 80px; /* ИСПРАВЛЕНО: увеличен отступ для фиксированного хедера */
+    margin-top: 80px;
     padding: 4rem 0;
     background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
     min-height: 80vh;
@@ -121,17 +121,11 @@ nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
-    align-items: center; /* ИСПРАВЛЕНО: было "right" */
+    align-items: center;
 }
 
 .hero-text {
     text-align: left;
-}
-
-@media (max-width: 768px) {
-    .hero-text {
-        text-align: center;
-    }
 }
 
 .gradient-text {
@@ -139,11 +133,9 @@ nav {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    
     display: block;
     word-break: break-word;
     overflow-wrap: break-word;
-    
     opacity: 1 !important;
     transform: none !important;
 }
@@ -158,7 +150,6 @@ nav {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.5s forwards;
-    
     background: linear-gradient(135deg, #202121 0%, #1e4461 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -180,18 +171,6 @@ nav {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
-    .gradient-text {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .gradient-text {
-        font-size: 2rem;
     }
 }
 
@@ -229,15 +208,20 @@ nav {
 
 .hero-image {
     position: relative;
-    width: 100%; /* ИСПРАВЛЕНО: убрано 50vw */
+    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     margin-top: 40px;
     aspect-ratio: 3 / 2;
     background: url('img/IMG_2128.jpg') center/cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border-radius: 20px;
+    min-height: 250px;
 }
 
 .hero-image::before {
@@ -245,6 +229,13 @@ nav {
     position: absolute;
     inset: 0;
     background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 /* Testimonials */
@@ -673,114 +664,6 @@ footer p {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px; /* ДОБАВЛЕНО: уменьшен отступ для мобильных */
-    }
-    
-    .nav-links {
-        display: none;
-    }
-    
-    .contact-btn {
-        padding: 0.5rem 1rem; /* ДОБАВЛЕНО: уменьшена кнопка для мобильных */
-        font-size: 0.9rem;
-    }
-
-    .hero {
-        margin-top: 70px; /* ДОБАВЛЕНО: уменьшен отступ для мобильных */
-        padding: 2rem 0;
-    }
-
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem; /* ДОБАВЛЕНО: уменьшен gap */
-    }
-
-    .hero-text h1,
-    .hero-text h2 {
-        font-size: 2rem; /* ДОБАВЛЕНО: уменьшен размер заголовка */
-    }
-    
-    .hero-text p {
-        font-size: 1rem; /* ДОБАВЛЕНО: уменьшен размер текста */
-    }
-
-    .hero-image {
-        width: 100%;
-        border-radius: 10px; /* ДОБАВЛЕНО: уменьшен радиус для мобильных */
-        margin-top: 0;
-        aspect-ratio: 3 / 2;
-        height: auto;
-    }
-
-    .services {
-        padding: 2rem 0; /* ДОБАВЛЕНО: уменьшены отступы */
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem; /* ДОБАВЛЕНО: уменьшен gap */
-    }
-    
-    .services h2 {
-        font-size: 2rem; /* ДОБАВЛЕНО: уменьшен размер заголовка */
-    }
-
-    .expertise {
-        padding: 3rem 0; /* ДОБАВЛЕНО: уменьшены отступы */
-    }
-    
-    .expertise h2 {
-        font-size: 2rem; /* ДОБАВЛЕНО: уменьшен размер заголовка */
-    }
-
-    .expertise-grid {
-        grid-template-columns: 1fr;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ИСПРАВЛЕНО: уменьшена минимальная ширина */
-    }
-
-    .contact-form {
-        margin: 0 15px; /* ДОБАВЛЕНО: отступы для формы */
-        padding: 2rem 1.5rem; /* ДОБАВЛЕНО: уменьшены отступы внутри формы */
-    }
-    
-    .contact-form-section {
-        padding: 3rem 0; /* ДОБАВЛЕНО: уменьшены отступы */
-    }
-    
-    .contact-form-section h2 {
-        font-size: 2rem; /* ДОБАВЛЕНО: уменьшен размер заголовка */
-    }
-
-    .form-buttons {
-        flex-direction: column; /* ДОБАВЛЕНО: кнопки в столбик на мобильных */
-        align-items: center;
-    }
-    
-    .btn-whatsapp,
-    .btn-email {
-        width: 100%; /* ДОБАВЛЕНО: кнопки на всю ширину */
-        max-width: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .expertise-grid {
-        grid-template-columns: 1fr; /* ДОБАВЛЕНО: одна колонка на очень маленьких экранах */
-    }
-    
-    .expertise-card {
-        padding: 1.5rem; /* ДОБАВЛЕНО: уменьшены отступы в карточках */
-    }
-    
-    .gradient-text {
-        font-size: 1.8rem; /* ДОБАВЛЕНО: еще больше уменьшен размер */
-    }
-}
-
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -795,4 +678,138 @@ footer p {
 
 .fade-in {
     animation: fadeInUp 0.8s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .contact-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        margin-top: 70px;
+        padding: 2rem 0;
+        min-height: auto;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-text h1,
+    .hero-text h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-text p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .gradient-text {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: none;
+        margin: 2rem 0 0 0;
+        border-radius: 15px;
+        min-height: 200px;
+        height: 250px;
+        aspect-ratio: unset;
+    }
+
+    .services {
+        padding: 2rem 0;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .services h2 {
+        font-size: 2rem;
+    }
+
+    .expertise {
+        padding: 3rem 0;
+    }
+    
+    .expertise h2 {
+        font-size: 2rem;
+    }
+
+    .expertise-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .expertise-card {
+        padding: 1.5rem;
+    }
+
+    .contact-form {
+        margin: 0 15px;
+        padding: 2rem 1.5rem;
+    }
+    
+    .contact-form-section {
+        padding: 3rem 0;
+    }
+    
+    .contact-form-section h2 {
+        font-size: 2rem;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-whatsapp,
+    .btn-email {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 1.5rem 0;
+    }
+    
+    .hero-image {
+        margin: 1.5rem 0 0 0;
+        border-radius: 10px;
+        min-height: 180px;
+        height: 200px;
+    }
+    
+    .gradient-text {
+        font-size: 2rem;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .expertise-card {
+        padding: 1.5rem;
+    }
 }
