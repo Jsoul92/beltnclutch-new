@@ -64,7 +64,7 @@ function toggleTheme() {
 function updateThemeToggleIcon(isDark) {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
-        themeToggle.innerHTML = isDark ? '☀️' : '🌙';
+        themeToggle.innerHTML = isDark ? '⚪︎' : '⚫︎';
         themeToggle.title = isDark ? 'Переключить на светлую тему' : 'Переключить на темную тему';
     }
 }
