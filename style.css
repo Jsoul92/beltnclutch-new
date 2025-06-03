@@ -16,6 +16,26 @@ body.dark-theme {
     color: #f8f9fa;
     background: #181818;
 }
+#theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#theme-toggle.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+}
 
 .container {
     max-width: 1400px;
