@@ -646,6 +646,7 @@ nav {
 }
 
 .btn-whatsapp:hover,
+.btn-facebook:hover,
 .btn-email:hover {
     background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
     transform: translateY(-2px);
