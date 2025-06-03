@@ -12,6 +12,10 @@ body {
     color: #181818;
     background: #f8f9fa;
 }
+body.dark-theme {
+    color: #f8f9fa;
+    background: #181818;
+}
 
 .container {
     max-width: 1400px;
