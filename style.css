@@ -417,6 +417,8 @@ nav {
 .service-features .icon {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50%;
     display: flex;
@@ -424,6 +426,7 @@ nav {
     justify-content: center;
     color: white;
     font-size: 1.4rem;
+    flex-shrink: 0;
 }
 
 /* Expertise Section */
