@@ -340,3 +340,22 @@ function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+ const toggleButton = document.getElementById('theme-toggle');
+  let lastScrollY = window.scrollY;
+
+  // переключение темы
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    toggleButton.textContent =
+      document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+  });
+
+  // автоскрытие при скролле вниз
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY) {
+      toggleButton.classList.add('hidden');
+    } else {
+      toggleButton.classList.remove('hidden');
+    }
+    lastScrollY = window.scrollY;
+  });
