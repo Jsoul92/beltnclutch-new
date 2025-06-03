@@ -7,7 +7,86 @@ document.addEventListener("DOMContentLoaded", () => {
     initNavbar();
     initGradientTextAnimation();
     initFormValidation();
+    initTheme(); // Добавляем инициализацию темы
 });
+
+// Theme functionality
+function initTheme() {
+    // Проверяем сохраненную тему при загрузке
+    const savedTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (!themeToggle) {
+        console.warn('Theme toggle button not found');
+        return;
+    }
+    
+    // Устанавливаем сохраненную тему или системную
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        updateThemeToggleIcon(true);
+    } else if (savedTheme === 'light') {
+        document.body.classList.remove('dark-theme');
+        updateThemeToggleIcon(false);
+    } else {
+        // Проверяем системные настройки
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+            document.body.classList.add('dark-theme');
+            updateThemeToggleIcon(true);
+        } else {
+            updateThemeToggleIcon(false);
+        }
+    }
+    
+    // Добавляем обработчик события
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Инициализируем скрытие кнопки при скролле
+    initThemeToggleScroll();
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const isDarkTheme = body.classList.contains('dark-theme');
+    
+    if (isDarkTheme) {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        updateThemeToggleIcon(false);
+    } else {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        updateThemeToggleIcon(true);
+    }
+}
+
+function updateThemeToggleIcon(isDark) {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.innerHTML = isDark ? '☀️' : '🌙';
+        themeToggle.title = isDark ? 'Переключить на светлую тему' : 'Переключить на темную тему';
+    }
+}
+
+function initThemeToggleScroll() {
+    const toggleButton = document.getElementById('themeToggle');
+    let lastScrollY = window.scrollY;
+
+    if (!toggleButton) {
+        return;
+    }
+
+    // Автоскрытие при скролле вниз
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+            toggleButton.classList.add('hidden');
+        } else {
+            toggleButton.classList.remove('hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
+}
 
 // Scroll animations
 function initScrollAnimations() {
@@ -340,22 +419,3 @@ function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
- const toggleButton = document.getElementById('theme-toggle');
-  let lastScrollY = window.scrollY;
-
-  // переключение темы
-  toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-theme');
-    toggleButton.textContent =
-      document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
-  });
-
-  // автоскрытие при скролле вниз
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > lastScrollY) {
-      toggleButton.classList.add('hidden');
-    } else {
-      toggleButton.classList.remove('hidden');
-    }
-    lastScrollY = window.scrollY;
-  });
