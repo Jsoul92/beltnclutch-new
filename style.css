@@ -16,7 +16,7 @@ body.dark-theme {
     color: #f8f9fa;
     background: #181818;
 }
-#theme-toggle {
+.theme-toggle {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -31,7 +31,7 @@ body.dark-theme {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-#theme-toggle.hidden {
+.theme-toggle.hidden {
   opacity: 0;
   pointer-events: none;
   transform: translateY(100%);
