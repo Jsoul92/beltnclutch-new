@@ -850,3 +850,80 @@ footer p {
         padding: 1.5rem;
     }
 }
+body.dark-theme header {
+    background: rgba(24, 24, 24, 0.95);
+    box-shadow: 0 2px 20px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .nav-links a {
+    color: #f8f9fa;
+}
+
+body.dark-theme .nav-links a:hover {
+    color: #a0a0ff;
+}
+
+body.dark-theme .nav-links a::after {
+    background: linear-gradient(135deg, #a0a0ff, #c57eff);
+}
+
+body.dark-theme .contact-btn,
+body.dark-theme .cta-btn {
+    background: linear-gradient(135deg, #8899ff 0%, #a477dd 100%);
+}
+
+body.dark-theme .hero {
+    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+}
+
+body.dark-theme .hero-text p,
+body.dark-theme .service-content p,
+body.dark-theme .services-subtitle,
+body.dark-theme .expertise-subtitle,
+body.dark-theme .service-features li,
+body.dark-theme .expertise-card p {
+    color: #ccc;
+}
+
+body.dark-theme .service-features li {
+    background: #1e1e1e;
+}
+
+body.dark-theme .service-features li:hover {
+    background: #2a2a2a;
+}
+
+body.dark-theme .services,
+body.dark-theme .testimonials-section,
+body.dark-theme .expertise {
+    background-color: #121212;
+}
+
+body.dark-theme .testimonial {
+    background: #1e1e1e;
+    color: #ddd;
+}
+
+body.dark-theme .testimonial-fade.left {
+    background: linear-gradient(to right, #121212 0%, transparent 100%);
+}
+body.dark-theme .testimonial-fade.right {
+    background: linear-gradient(to left, #121212 0%, transparent 100%);
+}
+
+body.dark-theme .expertise-card {
+    background: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-theme .expertise-card:hover {
+    background: #292929;
+    border-color: #8899ff;
+}
+
+body.dark-theme .services h2,
+body.dark-theme .service-content h3,
+body.dark-theme .expertise h2,
+body.dark-theme .expertise-card h3 {
+    color: #f0f0f0;
+}
