@@ -710,8 +710,10 @@ footer p {
 
     .hero-image {
         width: 100%;
-        margin-top: 20px;
         border-radius: 10px; /* ДОБАВЛЕНО: уменьшен радиус для мобильных */
+        margin-top: 0;
+        aspect-ratio: 3 / 2;
+        height: auto;
     }
 
     .services {
