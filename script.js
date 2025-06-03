@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Scroll animations
+    // Initialize all components
+    initScrollAnimations();
+    initMap();
+    initSmoothScroll();
+    initHoverEffects();
+    initNavbar();
+    initGradientTextAnimation();
+    initFormValidation();
+});
+
+// Scroll animations
+function initScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -14,24 +25,45 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, observerOptions);
 
-    // Исключаем .gradient-text из анимаций скролла
+    // Exclude .gradient-text from scroll animations
     document.querySelectorAll('.expertise-card, .service-content, .testimonial').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s ease-out';
         observer.observe(el);
     });
-    const map = L.map('map').setView([53.229, -4.123], 12);
+}
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap & CartoDB',
-      maxZoom: 19
-    }).addTo(map);
+// Initialize map
+function initMap() {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+        console.warn('Map element not found');
+        return;
+    }
 
-    const marker = L.marker([53.229, -4.123]).addTo(map);
-    marker.bindPopup("Our mobile service area");
+    if (typeof L === 'undefined') {
+        console.warn('Leaflet library not loaded');
+        return;
+    }
 
-    // Smooth scroll for anchor links
+    try {
+        const map = L.map('map').setView([53.229, -4.123], 12);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap & CartoDB',
+            maxZoom: 19
+        }).addTo(map);
+
+        const marker = L.marker([53.229, -4.123]).addTo(map);
+        marker.bindPopup("Our mobile service area");
+    } catch (error) {
+        console.error('Error initializing map:', error);
+    }
+}
+
+// Smooth scroll for anchor links
+function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -44,8 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+}
 
-    // Hover effects on service features
+// Hover effects on service features
+function initHoverEffects() {
     document.querySelectorAll('.service-features li').forEach(item => {
         item.addEventListener('mouseenter', function () {
             this.style.transform = 'translateX(10px) scale(1.02)';
@@ -55,187 +89,109 @@ document.addEventListener("DOMContentLoaded", () => {
             this.style.transform = 'translateX(0) scale(1)';
         });
     });
+}
 
-    // Hide/show navbar on scroll
+// Hide/show navbar on scroll
+function initNavbar() {
     let lastScrollY = window.scrollY;
     const navbar = document.getElementById('navbar');
 
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY) {
-                navbar.style.top = '-80px';
-            } else {
-                navbar.style.top = '0';
-            }
-            lastScrollY = window.scrollY;
-        });
+    if (!navbar) {
+        console.warn('Navbar element not found');
+        return;
     }
 
-    // Gradient text animation
-    function initGradientTextAnimation() {
-        const gradientText = document.querySelector(".gradient-text");
-
-        if (!gradientText) {
-            console.warn('Элемент с классом .gradient-text не найден');
-            return;
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+            navbar.style.top = '-80px';
+        } else {
+            navbar.style.top = '0';
         }
+        lastScrollY = window.scrollY;
+    });
+}
 
-        const originalText = gradientText.textContent.trim();
+// Gradient text animation
+function initGradientTextAnimation() {
+    const gradientText = document.querySelector(".gradient-text");
+
+    if (!gradientText) {
+        console.warn('Element with class .gradient-text not found');
+        return;
+    }
+
+    const originalText = gradientText.textContent.trim();
+    
+    if (!originalText) {
+        console.warn('Element .gradient-text found but text is empty');
+        return;
+    }
+
+    try {
+        // Mark element as animated
+        gradientText.classList.add('js-animated');
         
-        if (!originalText) {
-            console.warn('Элемент .gradient-text найден, но текст пустой');
-            return;
-        }
-
-        try {
-            // Помечаем элемент как анимированный
-            gradientText.classList.add('js-animated');
+        console.log('Original text:', originalText);
+        
+        // Clear content
+        gradientText.innerHTML = '';
+        
+        // Split text into words instead of characters
+        const words = originalText.split(' ');
+        let charIndex = 0;
+        
+        words.forEach((word, wordIndex) => {
+            // Create container for word
+            const wordSpan = document.createElement('span');
+            wordSpan.classList.add('word-container');
             
-            // Сохраняем оригинальные стили для отладки
-            console.log('Оригинальный текст:', originalText);
-            
-            // Очищаем содержимое
-            gradientText.innerHTML = '';
-            
-            // Разбиваем текст на слова, а не на символы
-            const words = originalText.split(' ');
-            let charIndex = 0;
-            
-            words.forEach((word, wordIndex) => {
-                // Создаем контейнер для слова
-                const wordSpan = document.createElement('span');
-                wordSpan.classList.add('word-container');
-                
-                // Создаем spans для каждого символа в слове
-                [...word].forEach((char) => {
-                    const charSpan = document.createElement('span');
-                    charSpan.classList.add('fade-char');
-                    charSpan.textContent = char;
-                    charSpan.style.animationDelay = `${charIndex * 0.03}s`;
-                    wordSpan.appendChild(charSpan);
-                    charIndex++;
-                });
-                
-                gradientText.appendChild(wordSpan);
-                
-                // Добавляем пробел после слова (кроме последнего)
-                if (wordIndex < words.length - 1) {
-                    const spaceSpan = document.createElement('span');
-                    spaceSpan.classList.add('fade-char');
-                    spaceSpan.textContent = '\u00A0'; // неразрывный пробел
-                    spaceSpan.style.animationDelay = `${charIndex * 0.03}s`;
-                    gradientText.appendChild(spaceSpan);
-                    charIndex++;
-                }
+            // Create spans for each character in word
+            [...word].forEach((char) => {
+                const charSpan = document.createElement('span');
+                charSpan.classList.add('fade-char');
+                charSpan.textContent = char;
+                charSpan.style.animationDelay = `${charIndex * 0.03}s`;
+                wordSpan.appendChild(charSpan);
+                charIndex++;
             });
-
-            console.log(`Анимация gradient-text инициализирована для ${words.length} слов`);
             
-            // Проверяем, что элементы созданы
-            setTimeout(() => {
-                const createdChars = gradientText.querySelectorAll('.fade-char');
-                console.log(`Создано ${createdChars.length} анимированных символов`);
-            }, 100);
+            gradientText.appendChild(wordSpan);
             
-        } catch (error) {
-            console.error('Ошибка при создании анимации gradient-text:', error);
-            // Восстанавливаем оригинальный текст
-            gradientText.innerHTML = originalText;
-            gradientText.classList.remove('js-animated');
-        }
+            // Add space after word (except last one)
+            if (wordIndex < words.length - 1) {
+                const spaceSpan = document.createElement('span');
+                spaceSpan.classList.add('fade-char');
+                spaceSpan.textContent = '\u00A0'; // non-breaking space
+                spaceSpan.style.animationDelay = `${charIndex * 0.03}s`;
+                gradientText.appendChild(spaceSpan);
+                charIndex++;
+            }
+        });
+
+        console.log(`Gradient-text animation initialized for ${words.length} words`);
+        
+        // Check that elements were created
+        setTimeout(() => {
+            const createdChars = gradientText.querySelectorAll('.fade-char');
+            console.log(`Created ${createdChars.length} animated characters`);
+        }, 100);
+        
+    } catch (error) {
+        console.error('Error creating gradient-text animation:', error);
+        // Restore original text
+        gradientText.innerHTML = originalText;
+        gradientText.classList.remove('js-animated');
     }
-    // Contact form functions for Belt'n'Clutch Mobile Repairs
-
-function sendWhatsApp() {
-    // Get form values
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const car = document.getElementById('car').value.trim();
-    const issue = document.getElementById('issue').value.trim();
-    
-    // Validate required fields
-    if (!name || !phone || !car || !issue) {
-        alert('Please fill in all fields before sending.');
-        return;
-    }
-    
-    // Your WhatsApp business number (replace with your actual number)
-    const whatsappNumber = '447123456789'; // Replace with your actual WhatsApp business number
-    
-    // Create WhatsApp message
-    const message = `*New Service Request - Belt'n'Clutch Mobile Repairs*
-
-*Name:* ${name}
-*Phone:* ${phone}
-*Vehicle:* ${car}
-
-*Issue Description:*
-${issue}
-
-*Service Area:* Anglesey & Gwynedd
-*Speciality:* Ford EcoBoost, Timing Belts, Clutches`;
-    
-    // Encode the message for URL
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Create WhatsApp URL
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-    
-    // Open WhatsApp
-    window.open(whatsappURL, '_blank');
 }
 
-function sendEmail() {
-    // Get form values
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const car = document.getElementById('car').value.trim();
-    const issue = document.getElementById('issue').value.trim();
-    
-    // Validate required fields
-    if (!name || !phone || !car || !issue) {
-        alert('Please fill in all fields before sending.');
-        return;
-    }
-    
-    // Your business email (replace with your actual email)
-    const businessEmail = 'info@beltnclutch.co.uk'; // Replace with your actual email
-    
-    // Create email subject and body
-    const subject = `Service Request from ${name} - Belt'n'Clutch Mobile Repairs`;
-    const body = `New Service Request - Belt'n'Clutch Mobile Repairs
-
-Name: ${name}
-Phone: ${phone}
-Vehicle: ${car}
-
-Issue Description:
-${issue}
-
-Service Area: Anglesey & Gwynedd
-Speciality: Ford EcoBoost, Timing Belts, Clutches
-
----
-This message was sent from the Belt'n'Clutch website contact form.`;
-    
-    // Create mailto URL
-    const mailtoURL = `mailto:${businessEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    // Open email client
-    window.location.href = mailtoURL;
-}
-
-// Optional: Clear form after successful submission
-function clearForm() {
-    document.getElementById('name').value = '';
-    document.getElementById('phone').value = '';
-    document.getElementById('car').value = '';
-    document.getElementById('issue').value = '';
-}
-
-// Optional: Add form validation on input
-document.addEventListener('DOMContentLoaded', function() {
+// Form validation
+function initFormValidation() {
     const form = document.querySelector('.contact-form');
+    if (!form) {
+        console.warn('Contact form not found');
+        return;
+    }
+
     const inputs = form.querySelectorAll('input, textarea');
     
     inputs.forEach(input => {
@@ -253,8 +209,134 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}
 
-    // Инициализируем анимацию текста
-    initGradientTextAnimation();
-});
+// Contact form functions for Belt'n'Clutch Mobile Repairs
+function sendWhatsApp() {
+    try {
+        // Get form values
+        const name = document.getElementById('name')?.value.trim();
+        const phone = document.getElementById('phone')?.value.trim();
+        const car = document.getElementById('car')?.value.trim();
+        const issue = document.getElementById('issue')?.value.trim();
+        
+        // Validate required fields
+        if (!name || !phone || !car || !issue) {
+            alert('Please fill in all fields before sending.');
+            return;
+        }
+        
+        // WhatsApp business number
+        const whatsappNumber = '447442109885';
+        
+        // Create WhatsApp message
+        const message = `*New Service Request - Belt'n'Clutch Mobile Repairs*
+
+*Name:* ${name}
+*Phone:* ${phone}
+*Vehicle:* ${car}
+
+*Issue Description:*
+${issue}
+
+*Service Area:* Anglesey & Gwynedd
+*Speciality:* Ford EcoBoost, Timing Belts, Clutches`;
+        
+        // Encode the message for URL
+        const encodedMessage = encodeURIComponent(message);
+        
+        // Create WhatsApp URL
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        
+        // Open WhatsApp
+        window.open(whatsappURL, '_blank');
+        
+        // Optional: Clear form after successful submission
+        setTimeout(() => {
+            if (confirm('Message sent! Would you like to clear the form?')) {
+                clearForm();
+            }
+        }, 1000);
+        
+    } catch (error) {
+        console.error('Error sending WhatsApp message:', error);
+        alert('An error occurred. Please try again or contact us directly.');
+    }
+}
+
+function sendEmail() {
+    try {
+        // Get form values
+        const name = document.getElementById('name')?.value.trim();
+        const phone = document.getElementById('phone')?.value.trim();
+        const car = document.getElementById('car')?.value.trim();
+        const issue = document.getElementById('issue')?.value.trim();
+        
+        // Validate required fields
+        if (!name || !phone || !car || !issue) {
+            alert('Please fill in all fields before sending.');
+            return;
+        }
+        
+        // Business email
+        const businessEmail = 'mobilemechanixpro@gmail.com';
+        
+        // Create email subject and body
+        const subject = `Service Request from ${name} - Belt'n'Clutch Mobile Repairs`;
+        const body = `New Service Request - Belt'n'Clutch Mobile Repairs
+
+Name: ${name}
+Phone: ${phone}
+Vehicle: ${car}
+
+Issue Description:
+${issue}
+
+Service Area: Anglesey & Gwynedd
+Speciality: Ford EcoBoost, Timing Belts, Clutches
+
+---
+This message was sent from the Belt'n'Clutch website contact form.`;
+        
+        // Create mailto URL
+        const mailtoURL = `mailto:${businessEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Open email client
+        window.location.href = mailtoURL;
+        
+        // Optional: Clear form after successful submission
+        setTimeout(() => {
+            if (confirm('Email client opened! Would you like to clear the form?')) {
+                clearForm();
+            }
+        }, 1000);
+        
+    } catch (error) {
+        console.error('Error opening email client:', error);
+        alert('An error occurred. Please try again or contact us directly at mobilemechanixpro@gmail.com');
+    }
+}
+
+// Clear form function
+function clearForm() {
+    const formElements = ['name', 'phone', 'car', 'issue'];
+    formElements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.value = '';
+            element.style.borderColor = '#ccc';
+        }
+    });
+}
+
+// Utility function to validate phone number format
+function validatePhoneNumber(phone) {
+    const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+    return phoneRegex.test(phone);
+}
+
+// Utility function to validate email format
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
