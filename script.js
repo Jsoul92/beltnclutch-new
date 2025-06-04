@@ -64,8 +64,11 @@ function toggleTheme() {
 function updateThemeToggleIcon(isDark) {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
-        themeToggle.innerHTML = isDark ? '⚪︎' : '⚫︎';
-        themeToggle.title = isDark ? 'Переключить на светлую тему' : 'Переключить на темную тему';
+        themeToggle.innerHTML = `<i data-lucide="${isDark ? 'sun' : 'moon'}"></i>`;
+        themeToggle.title = isDark ? 'Переключить на светлую тему' : 'Переключить на тёмную тему';
+
+        // Перерисовать иконку после изменения
+        lucide.createIcons();
     }
 }
 
