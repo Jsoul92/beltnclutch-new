@@ -898,6 +898,8 @@ body.dark-theme .form-group textarea::placeholder {
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 body.dark-theme .btn-whatsapp,
