@@ -892,6 +892,8 @@ body.dark-theme .form-group textarea::placeholder {
 .btn-email {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    min-width: 220px; /* фиксируем одинаковую ширину */
+    justify-content: center;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: none;
