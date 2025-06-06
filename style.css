@@ -885,6 +885,7 @@ body.dark-theme .form-group textarea::placeholder {
     margin-top: 2rem;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: stretch; /* Добавляем для одинаковой высоты */
 }
 
 .btn-whatsapp,
@@ -893,8 +894,10 @@ body.dark-theme .form-group textarea::placeholder {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     min-width: 220px; /* фиксируем одинаковую ширину */
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
+    max-width: 220px; /* добавляем максимальную ширину */
+    width: 220px; /* точная ширина */
+    min-height: 48px; /* фиксируем одинаковую высоту */
+    padding: 0.75rem 1rem; /* уменьшаем боковые отступы */
     font-size: 1rem;
     border: none;
     border-radius: 12px;
@@ -902,6 +905,14 @@ body.dark-theme .form-group textarea::placeholder {
     transition: background 0.3s ease, transform 0.2s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box; /* важно для правильного расчета размеров */
+    font-weight: 500;
+    text-decoration: none; /* если это ссылки */
+    white-space: nowrap; /* предотвращаем перенос текста */
+    overflow: hidden; /* скрываем переполнение */
+    text-overflow: ellipsis; /* добавляем многоточие если текст длинный */
 }
 
 body.dark-theme .btn-whatsapp,
