@@ -97,12 +97,13 @@ header {
     z-index: 1000;
     padding: 1rem 0;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-body.dark-theme navbar {
-    background: rgba(15, 15, 15, 0.95); /* Более темный фон */
-    box-shadow: 0 2px 20px rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Добавлена граница для лучшего разделения */
+body.dark-theme header {
+    background: rgba(15, 15, 15, 0.95) !important; /* Добавляем !important для принудительного применения */
+    box-shadow: 0 2px 20px rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 nav {
