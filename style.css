@@ -1136,7 +1136,8 @@ body.dark-theme footer p {
     }
     
     .btn-whatsapp,
-    .btn-email {
+    .btn-email,
+    .btn-facebook {
         width: 100%;
         max-width: 250px;
     }
